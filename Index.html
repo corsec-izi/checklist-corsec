@@ -1,0 +1,391 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Calendar, 
+  Target, 
+  AlertTriangle, 
+  CheckCircle2, 
+  Clock, 
+  FileText, 
+  Users, 
+  TrendingUp, 
+  ShieldAlert,
+  ChevronRight,
+  Menu,
+  X,
+  ArrowRight,
+  Eye,
+  Zap
+} from 'lucide-react';
+
+const App = () => {
+  const [activeTab, setActiveTab] = useState('monthly');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState('Februari');
+
+  const data = {
+    summary: {
+      role: "The Guardian of Trust & Compliance",
+      focus: "Transisi Akuntabilitas & Stabilitas Ramadhan",
+      mustWin: [
+        "Annual Report 2025 (Jan-Mar)",
+        "Ramadhan Governance (Feb-Mar)",
+        "Stakeholder Engagement (Regulator)"
+      ]
+    },
+    months: [
+      { 
+        name: 'Januari', 
+        theme: 'Foundation & Reporting', 
+        proker: 'Kick-off Annual Report, KMS Update',
+        kpi: 'SS12, SS21',
+        tasks: ['Finalisasi data RKAT', 'Penyusunan kerangka AR', 'Digitalisasi arsip semester 2-2025']
+      },
+      { 
+        name: 'Februari', 
+        theme: 'The Pre-Ramadhan Sprint', 
+        proker: 'Tarhib Ramadhan, Finalisasi AR',
+        kpi: 'SS29, SS26',
+        special: 'Ramadhan Dimulai 18 Feb',
+        tasks: ['Pelaksanaan Tarhib (M2)', 'Strategic Briefing Ramadhan', 'Finalisasi draf AR']
+      },
+      { 
+        name: 'Maret', 
+        theme: 'Critical Governance', 
+        proker: 'Real-time Monitoring Ramadhan',
+        kpi: 'SS29, SS12',
+        special: 'Peak Ramadhan Mode',
+        tasks: ['Daily Decision Monitoring', 'Crisis Response Ready', 'Penyelesaian AR']
+      },
+      { 
+        name: 'April', 
+        theme: 'Recovery & PR', 
+        proker: 'Halal Bihalal, Launching AR',
+        kpi: 'SS21, SS29',
+        tasks: ['Media Gathering HBH', 'Distribusi AR ke Regulator', 'Evaluasi Kinerja Ramadhan']
+      },
+      { 
+        name: 'Mei', 
+        theme: 'Governance Strengthening', 
+        proker: 'Internal Service Audit',
+        kpi: 'SS16, SS12',
+        tasks: ['Audit Kantor Perwakilan 1', 'Review SOP Kepatuhan', 'Update Stakeholder Map']
+      },
+      { 
+        name: 'Juni', 
+        theme: 'Mid-Year Review', 
+        proker: 'Internal Governance Award',
+        kpi: 'SS14, SS12',
+        tasks: ['Evaluasi KPI Semester 1', 'Simulasi Respon Krisis', 'Audit Kantor Perwakilan 2']
+      }
+    ],
+    guidance: {
+      daily: [
+        { title: "Media Monitoring", desc: "Cek sentimen publik terkait lembaga (Zakat, Infak, Wakaf)." },
+        { title: "Decision Tracking", desc: "Dokumentasi instruksi lisan Direksi menjadi Minute of Meetings." },
+        { title: "Compliance Check", desc: "Verifikasi legalitas dokumen yang masuk ke meja Direksi." }
+      ],
+      weekly: [
+        { title: "Weekly Coordination", desc: "Sinkronisasi antar unit terkait program berjalan." },
+        { title: "Strategic Briefing", desc: "Penyusunan memo ringkas H-1 agenda strategis Direksi." },
+        { title: "KPI Health Check", desc: "Update progres capaian IKU mingguan." }
+      ]
+    },
+    risks: [
+      { name: "Keterlambatan Annual Report", period: "Maret", impact: "High", mitigation: "Vendor outsourcing & internal timeline ketat." },
+      { name: "Crisis Media Ramadhan", period: "Feb-Mar", impact: "Critical", mitigation: "WhastApp Crisis Group & Protokol Respon Cepat." },
+      { name: "Blunder Komunikasi Direksi", period: "Anytime", impact: "Medium", mitigation: "Strategic Briefing Memo wajib sebelum eksternal." }
+    ]
+  };
+
+  return (
+    <div className="min-h-screen bg-white text-zinc-900 font-sans selection:bg-zinc-900 selection:text-white">
+      {/* Navigation */}
+      <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16 items-center">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-zinc-900 rounded-sm flex items-center justify-center">
+                <ShieldAlert className="text-white w-5 h-5" />
+              </div>
+              <span className="font-bold tracking-tighter text-xl uppercase italic">Corsec Ops.</span>
+            </div>
+            <div className="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-widest">
+              <button onClick={() => setActiveTab('monthly')} className={`${activeTab === 'monthly' ? 'text-zinc-900 border-b-2 border-zinc-900' : 'text-zinc-400'} hover:text-zinc-900 py-1 transition-all`}>Bulanan</button>
+              <button onClick={() => setActiveTab('routine')} className={`${activeTab === 'routine' ? 'text-zinc-900 border-b-2 border-zinc-900' : 'text-zinc-400'} hover:text-zinc-900 py-1 transition-all`}>Rutinitas</button>
+              <button onClick={() => setActiveTab('risks')} className={`${activeTab === 'risks' ? 'text-zinc-900 border-b-2 border-zinc-900' : 'text-zinc-400'} hover:text-zinc-900 py-1 transition-all`}>Mitigasi</button>
+            </div>
+            <div className="md:hidden">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2">
+                {isMenuOpen ? <X /> : <Menu />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-4 border-b border-zinc-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-end">
+            <div>
+              <span className="inline-block px-3 py-1 bg-zinc-100 text-xs font-bold uppercase tracking-widest mb-4">Strategic Guidance 2026</span>
+              <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
+                The <br /><span className="text-zinc-400">Guardian</span>
+              </h1>
+              <p className="text-lg text-zinc-500 max-w-md uppercase leading-snug">
+                Menjaga kepercayaan dan kepatuhan lembaga zakat nasional melalui tata kelola strategis Januari – Juli 2026.
+              </p>
+            </div>
+            <div className="bg-zinc-900 text-white p-8 rounded-2xl">
+              <h3 className="text-sm font-bold uppercase tracking-widest mb-6 opacity-50 flex items-center gap-2">
+                <Target className="w-4 h-4" /> Must-Win Battles
+              </h3>
+              <ul className="space-y-4">
+                {data.summary.mustWin.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 group">
+                    <div className="mt-1 w-5 h-5 rounded-full border border-zinc-700 flex items-center justify-center text-[10px] group-hover:bg-white group-hover:text-black transition-colors">
+                      {i + 1}
+                    </div>
+                    <span className="font-medium text-lg leading-tight">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content Areas */}
+      <main className="max-w-7xl mx-auto px-4 py-20">
+        
+        {/* Monthly View */}
+        {activeTab === 'monthly' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+              <h2 className="text-4xl font-black uppercase tracking-tighter">Timeline Naratif</h2>
+              <div className="flex gap-2 overflow-x-auto w-full md:w-auto pb-2">
+                {data.months.map((m) => (
+                  <button
+                    key={m.name}
+                    onClick={() => setSelectedMonth(m.name)}
+                    className={`px-4 py-2 text-xs font-bold uppercase tracking-widest whitespace-nowrap transition-all border ${selectedMonth === m.name ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white text-zinc-400 border-zinc-200 hover:border-zinc-900'}`}
+                  >
+                    {m.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Month Card */}
+              <div className="md:col-span-2 space-y-8">
+                {data.months.filter(m => m.name === selectedMonth).map((m) => (
+                  <div key={m.name} className="border-l-4 border-zinc-900 pl-8 py-4">
+                    <div className="flex items-center gap-4 mb-4">
+                      <h3 className="text-7xl font-black text-zinc-100 uppercase leading-none">{m.name}</h3>
+                      {m.special && (
+                        <span className="px-3 py-1 bg-red-100 text-red-600 text-[10px] font-black uppercase tracking-tighter rounded-full flex items-center gap-1">
+                          <Zap className="w-3 h-3" /> {m.special}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-2xl font-bold uppercase tracking-tight mb-8">{m.theme}</p>
+                    
+                    <div className="grid sm:grid-cols-2 gap-8">
+                      <div className="space-y-4">
+                        <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400">Aktivitas Kunci</h4>
+                        <ul className="space-y-3">
+                          {m.tasks.map((t, idx) => (
+                            <li key={idx} className="flex gap-3 items-center group cursor-default">
+                              <div className="w-2 h-2 bg-zinc-200 group-hover:bg-zinc-900 transition-colors" />
+                              <span className="text-zinc-600 font-medium">{t}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="bg-zinc-50 p-6 rounded-xl space-y-6">
+                        <div>
+                          <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2 italic">Proker / Program</h4>
+                          <p className="font-bold text-sm uppercase">{m.proker}</p>
+                        </div>
+                        <div>
+                          <h4 className="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2 italic">Indikator KPI</h4>
+                          <div className="flex gap-2">
+                             {m.kpi.split(', ').map(k => <span key={k} className="px-2 py-1 bg-white border border-zinc-200 text-[10px] font-bold">{k}</span>)}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Sidebar - Quick Facts */}
+              <div className="bg-zinc-100 p-8 rounded-2xl flex flex-col justify-between h-full">
+                <div>
+                  <h4 className="text-xs font-black uppercase tracking-widest mb-6">Alignment Check</h4>
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between border-b border-zinc-200 pb-2">
+                      <span className="text-xs font-bold text-zinc-500 uppercase">Budget Compliance</span>
+                      <span className="text-xs font-black text-green-600 uppercase">On Track</span>
+                    </div>
+                    <div className="flex items-center justify-between border-b border-zinc-200 pb-2">
+                      <span className="text-xs font-bold text-zinc-500 uppercase">Governance Risk</span>
+                      <span className={`text-xs font-black uppercase ${selectedMonth === 'Maret' ? 'text-red-600' : 'text-zinc-900'}`}>
+                        {selectedMonth === 'Maret' ? 'High' : 'Normal'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-12 pt-12 border-t border-zinc-200">
+                  <p className="text-[10px] leading-relaxed text-zinc-400 uppercase font-bold italic">
+                    "Corsec harus memastikan setiap langkah strategis direksi memiliki landasan legalitas dan kepatuhan syariah."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Routine View */}
+        {activeTab === 'routine' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+             <div className="text-center mb-16">
+              <h2 className="text-4xl font-black uppercase tracking-tighter mb-4">Operational Guidance</h2>
+              <p className="text-zinc-500 uppercase tracking-widest text-xs">Transformasi dari administratif ke strategis</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-zinc-900 text-white rounded-lg"><Clock size={20} /></div>
+                  <h3 className="text-xl font-bold uppercase tracking-widest">Harian (Daily)</h3>
+                </div>
+                {data.guidance.daily.map((item, i) => (
+                  <div key={i} className="group p-6 border border-zinc-100 hover:border-zinc-900 transition-all rounded-xl hover:shadow-xl hover:shadow-zinc-100">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-black uppercase tracking-tight text-lg">{item.title}</h4>
+                      <CheckCircle2 className="w-5 h-5 text-zinc-200 group-hover:text-zinc-900 transition-colors" />
+                    </div>
+                    <p className="text-zinc-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-zinc-900 text-white rounded-lg"><Calendar size={20} /></div>
+                  <h3 className="text-xl font-bold uppercase tracking-widest">Mingguan (Weekly)</h3>
+                </div>
+                {data.guidance.weekly.map((item, i) => (
+                  <div key={i} className="group p-6 border border-zinc-100 hover:border-zinc-900 transition-all rounded-xl hover:shadow-xl hover:shadow-zinc-100">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-black uppercase tracking-tight text-lg">{item.title}</h4>
+                      <CheckCircle2 className="w-5 h-5 text-zinc-200 group-hover:text-zinc-900 transition-colors" />
+                    </div>
+                    <p className="text-zinc-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Risk Mitigation View */}
+        {activeTab === 'risks' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <div className="bg-zinc-900 text-white p-12 rounded-3xl mb-12 relative overflow-hidden">
+              <div className="relative z-10">
+                <h2 className="text-4xl font-black uppercase tracking-tighter mb-4">Risk Matrix & Anticipation</h2>
+                <p className="text-zinc-400 uppercase tracking-widest text-xs max-w-lg mb-12">
+                  Meminimalkan "blind spot" dan potensi kegagalan tata kelola selama periode puncak Ramadhan.
+                </p>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="border-b border-zinc-800 text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                        <th className="pb-4 pr-4">Resiko Utama</th>
+                        <th className="pb-4 px-4">Periode Rawan</th>
+                        <th className="pb-4 px-4">Dampak</th>
+                        <th className="pb-4 pl-4">Langkah Mitigasi</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-800">
+                      {data.risks.map((risk, i) => (
+                        <tr key={i} className="group hover:bg-zinc-800/50 transition-colors">
+                          <td className="py-6 pr-4 font-bold text-lg leading-none">{risk.name}</td>
+                          <td className="py-6 px-4">
+                            <span className="px-2 py-1 bg-zinc-800 text-xs font-bold uppercase tracking-widest border border-zinc-700">{risk.period}</span>
+                          </td>
+                          <td className="py-6 px-4">
+                            <span className={`font-black text-xs uppercase ${risk.impact === 'Critical' ? 'text-red-500' : 'text-zinc-400'}`}>{risk.impact}</span>
+                          </td>
+                          <td className="py-6 pl-4 text-zinc-400 text-sm italic">{risk.mitigation}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div className="absolute -right-20 -bottom-20 opacity-5 pointer-events-none">
+                <AlertTriangle size={400} />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="p-8 border-2 border-zinc-900 rounded-2xl">
+                <h3 className="text-xl font-black uppercase tracking-tighter mb-6 flex items-center gap-2">
+                  <Zap className="w-5 h-5" /> Ramadhan Protocol
+                </h3>
+                <ul className="space-y-4">
+                  <li className="flex gap-3 text-sm font-medium">
+                    <span className="text-zinc-300">01</span>
+                    <span>H-1 Rapat Pleno, draf "Decision Memo" sudah siap.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm font-medium border-t border-zinc-100 pt-4">
+                    <span className="text-zinc-300">02</span>
+                    <span>Monitoring berita setiap 2 jam sekali pada jam kerja.</span>
+                  </li>
+                  <li className="flex gap-3 text-sm font-medium border-t border-zinc-100 pt-4">
+                    <span className="text-zinc-300">03</span>
+                    <span>DPS (Dewan Pengawas Syariah) stand-by via Call untuk Fatwa Program Cepat.</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="p-8 bg-zinc-50 rounded-2xl flex items-center justify-center text-center">
+                 <div>
+                    <ShieldAlert className="w-12 h-12 mx-auto mb-4 text-zinc-900" />
+                    <p className="text-xs font-black uppercase tracking-widest mb-2">Advisor Note</p>
+                    <p className="text-zinc-500 italic text-sm italic">"Kecepatan tidak boleh mengorbankan kepatuhan. <br />Ramadhan adalah maraton, bukan hanya sprint."</p>
+                 </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-zinc-900 text-white py-12 mt-20 border-t border-zinc-800">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+          <div>
+            <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
+              <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
+                <ShieldAlert className="text-zinc-900 w-4 h-4" />
+              </div>
+              <span className="font-bold tracking-tighter uppercase italic">Corsec Ops 2026</span>
+            </div>
+            <p className="text-zinc-500 text-xs uppercase tracking-widest">
+              Lembaga Zakat Nasional — Inisiatif Zakat Indonesia
+            </p>
+          </div>
+          <div className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">
+            Designed for Performance & Accountability
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
