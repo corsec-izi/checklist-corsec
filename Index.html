@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corsec Ops 2026 - The Guardian</title>
+    <title>Corsec Strategic Command Center 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .month-content { display: none; }
+        .month-content.active { display: block; }
     </style>
 </head>
-<body class="min-h-screen bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white">
+<body class="bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white">
 
+    <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -23,80 +28,334 @@
                     <span class="font-bold tracking-tighter text-xl uppercase italic">Corsec Ops.</span>
                 </div>
                 <div class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-widest">
-                    <a href="#" class="text-zinc-900 border-b-2 border-zinc-900 py-1">Strategi</a>
-                    <a href="#" class="text-zinc-400 hover:text-zinc-900 py-1">Timeline</a>
+                    <button onclick="switchTab('monthly')" id="btn-monthly" class="nav-btn text-zinc-900 border-b-2 border-zinc-900 py-1 transition-all">Bulanan</button>
+                    <button onclick="switchTab('routine')" id="btn-routine" class="nav-btn text-zinc-400 hover:text-zinc-900 py-1 transition-all">Rutinitas</button>
+                    <button onclick="switchTab('risks')" id="btn-risks" class="nav-btn text-zinc-400 hover:text-zinc-900 py-1 transition-all">Mitigasi</button>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="pt-32 pb-20 px-4 border-b border-zinc-100">
         <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-2 gap-12 items-end">
                 <div>
-                    <span class="inline-block px-3 py-1 bg-zinc-100 text-[10px] font-bold uppercase tracking-widest mb-4">Strategic Guidance 2026</span>
+                    <span class="inline-block px-3 py-1 bg-zinc-100 text-xs font-bold uppercase tracking-widest mb-4">Strategic Guidance 2026</span>
                     <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
-                        The <br><span class="text-zinc-400">Guardian</span>
+                        The <br /><span class="text-zinc-400">Guardian</span>
                     </h1>
                     <p class="text-lg text-zinc-500 max-w-md uppercase leading-snug">
-                        Menjaga kepercayaan dan kepatuhan IZI melalui tata kelola strategis Januari – Juni 2026.
+                        Menjaga kepercayaan dan kepatuhan lembaga zakat nasional melalui tata kelola strategis Januari – Juli 2026.
                     </p>
                 </div>
-                <div class="bg-zinc-900 text-white p-8 rounded-2xl">
+                <div class="bg-zinc-900 text-white p-8 rounded-2xl shadow-2xl">
                     <h3 class="text-sm font-bold uppercase tracking-widest mb-6 opacity-50 flex items-center gap-2">
-                        <i data-lucide="target" class="w-4 h-4"></i> Must-Win Battles 2026
+                        <i data-lucide="target" class="w-4 h-4"></i> Must-Win Battles
                     </h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 rounded-full border border-zinc-700 flex items-center justify-center text-[10px]">1</div>
-                            <span class="font-medium text-lg leading-tight">Annual Report 2025 (Jan-Mar)</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 rounded-full border border-zinc-700 flex items-center justify-center text-[10px]">2</div>
-                            <span class="font-medium text-lg leading-tight">Ramadhan Governance (Feb-Mar)</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1 w-5 h-5 rounded-full border border-zinc-700 flex items-center justify-center text-[10px]">3</div>
-                            <span class="font-medium text-lg leading-tight">Stakeholder Engagement</span>
-                        </li>
+                    <ul class="space-y-4" id="must-win-list">
+                        <!-- Filled by JS -->
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Main Content Area -->
     <main class="max-w-7xl mx-auto px-4 py-20">
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="p-8 bg-zinc-50 rounded-2xl">
-                <i data-lucide="calendar" class="mb-4 text-zinc-400"></i>
-                <h4 class="font-black uppercase tracking-tight mb-2">Februari Focus</h4>
-                <p class="text-sm text-zinc-600">Tarhib Ramadhan & Finalisasi Draf Annual Report.</p>
+        
+        <!-- Tab: Monthly -->
+        <div id="monthly" class="tab-content active animate-in fade-in duration-700">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+                <h2 class="text-4xl font-black uppercase tracking-tighter">Timeline Naratif</h2>
+                <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2" id="month-selector">
+                    <!-- Filled by JS -->
+                </div>
             </div>
-            <div class="p-8 bg-zinc-50 rounded-2xl border-2 border-zinc-900">
-                <i data-lucide="zap" class="mb-4 text-zinc-900"></i>
-                <h4 class="font-black uppercase tracking-tight mb-2">Maret Crisis Mode</h4>
-                <p class="text-sm text-zinc-600">Peak Ramadhan 2026 dimulai 18 Februari. Fokus pada Daily Decision Monitoring.</p>
-            </div>
-            <div class="p-8 bg-zinc-50 rounded-2xl">
-                <i data-lucide="shield-check" class="mb-4 text-zinc-400"></i>
-                <h4 class="font-black uppercase tracking-tight mb-2">Compliance</h4>
-                <p class="text-sm text-zinc-600">Verifikasi legalitas dokumen dan briefing rutin Direksi.</p>
+
+            <div class="grid md:grid-cols-3 gap-8" id="month-details-container">
+                <!-- Month Cards filled by JS -->
             </div>
         </div>
+
+        <!-- Tab: Routine -->
+        <div id="routine" class="tab-content animate-in fade-in duration-700">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Operational Guidance</h2>
+                <p class="text-zinc-500 uppercase tracking-widest text-xs">Transformasi dari administratif ke strategis</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div id="daily-guidance" class="space-y-6">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2 bg-zinc-900 text-white rounded-lg"><i data-lucide="clock" size="20"></i></div>
+                        <h3 class="text-xl font-bold uppercase tracking-widest">Harian (Daily)</h3>
+                    </div>
+                    <!-- Filled by JS -->
+                </div>
+                <div id="weekly-guidance" class="space-y-6">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2 bg-zinc-900 text-white rounded-lg"><i data-lucide="calendar" size="20"></i></div>
+                        <h3 class="text-xl font-bold uppercase tracking-widest">Mingguan (Weekly)</h3>
+                    </div>
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Risks -->
+        <div id="risks" class="tab-content animate-in fade-in duration-700">
+            <div class="bg-zinc-900 text-white p-12 rounded-3xl mb-12 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">Risk Matrix & Anticipation</h2>
+                    <p class="text-zinc-400 uppercase tracking-widest text-xs max-w-lg mb-12">
+                        Meminimalkan "blind spot" dan potensi kegagalan tata kelola selama periode puncak Ramadhan.
+                    </p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-zinc-800 text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                                    <th class="pb-4 pr-4">Resiko Utama</th>
+                                    <th class="pb-4 px-4">Periode Rawan</th>
+                                    <th class="pb-4 px-4">Dampak</th>
+                                    <th class="pb-4 pl-4">Langkah Mitigasi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="risk-table-body" class="divide-y divide-zinc-800">
+                                <!-- Filled by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="absolute -right-20 -bottom-20 opacity-5 pointer-events-none text-white">
+                    <i data-lucide="alert-triangle" style="width: 400px; height: 400px;"></i>
+                </div>
+            </div>
+        </div>
+
     </main>
 
-    <footer class="bg-zinc-900 text-white py-12 border-t border-zinc-800">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+    <!-- Footer -->
+    <footer class="bg-zinc-900 text-white py-12 mt-20 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
             <div>
-                <span class="font-bold tracking-tighter uppercase italic">Corsec Ops 2026</span>
-                <p class="text-zinc-500 text-[10px] uppercase tracking-widest mt-2">Inisiatif Zakat Indonesia</p>
+                <div class="flex items-center gap-2 mb-4 justify-center md:justify-start">
+                    <div class="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
+                        <i data-lucide="shield-alert" class="text-zinc-900 w-4 h-4"></i>
+                    </div>
+                    <span class="font-bold tracking-tighter uppercase italic">Corsec Ops 2026</span>
+                </div>
+                <p class="text-zinc-500 text-[10px] uppercase tracking-widest">
+                    Lembaga Zakat Nasional — Strategic Monitoring System
+                </p>
+            </div>
+            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-600">
+                Designed for Performance & Accountability
             </div>
         </div>
     </footer>
 
     <script>
-        // Inisialisasi Ikon Lucide
-        lucide.createIcons();
+        // Data Structure
+        const appData = {
+            mustWin: [
+                "Annual Report 2025 (Jan-Mar)",
+                "Ramadhan Governance (Feb-Mar)",
+                "Stakeholder Engagement (Regulator)"
+            ],
+            months: [
+                { name: 'Januari', theme: 'Foundation & Reporting', proker: 'Kick-off Annual Report, KMS Update', kpi: 'SS12, SS21', special: '', tasks: ['Finalisasi data RKAT', 'Penyusunan kerangka AR', 'Digitalisasi arsip semester 2-2025'] },
+                { name: 'Februari', theme: 'The Pre-Ramadhan Sprint', proker: 'Tarhib Ramadhan, Finalisasi AR', kpi: 'SS29, SS26', special: 'Ramadhan Dimulai 18 Feb', tasks: ['Pelaksanaan Tarhib (M2)', 'Strategic Briefing Ramadhan', 'Finalisasi draf AR'] },
+                { name: 'Maret', theme: 'Critical Governance', proker: 'Real-time Monitoring Ramadhan', kpi: 'SS29, SS12', special: 'Peak Ramadhan Mode', tasks: ['Daily Decision Monitoring', 'Crisis Response Ready', 'Penyelesaian AR'] },
+                { name: 'April', theme: 'Recovery & PR', proker: 'Halal Bihalal, Launching AR', kpi: 'SS21, SS29', special: '', tasks: ['Media Gathering HBH', 'Distribusi AR ke Regulator', 'Evaluasi Kinerja Ramadhan'] },
+                { name: 'Mei', theme: 'Governance Strengthening', proker: 'Internal Service Audit', kpi: 'SS16, SS12', special: '', tasks: ['Audit Kantor Perwakilan 1', 'Review SOP Kepatuhan', 'Update Stakeholder Map'] },
+                { name: 'Juni', theme: 'Mid-Year Review', proker: 'Internal Governance Award', kpi: 'SS14, SS12', special: '', tasks: ['Evaluasi KPI Semester 1', 'Simulasi Respon Krisis', 'Audit Kantor Perwakilan 2'] }
+            ],
+            guidance: {
+                daily: [
+                    { title: "Media Monitoring", desc: "Cek sentimen publik terkait lembaga (Zakat, Infak, Wakaf)." },
+                    { title: "Decision Tracking", desc: "Dokumentasi instruksi lisan Direksi menjadi Minute of Meetings." },
+                    { title: "Compliance Check", desc: "Verifikasi legalitas dokumen yang masuk ke meja Direksi." }
+                ],
+                weekly: [
+                    { title: "Weekly Coordination", desc: "Sinkronisasi antar unit terkait program berjalan." },
+                    { title: "Strategic Briefing", desc: "Penyusunan memo ringkas H-1 agenda strategis Direksi." },
+                    { title: "KPI Health Check", desc: "Update progres capaian IKU mingguan." }
+                ]
+            },
+            risks: [
+                { name: "Keterlambatan Annual Report", period: "Maret", impact: "High", mitigation: "Vendor outsourcing & internal timeline ketat." },
+                { name: "Crisis Media Ramadhan", period: "Feb-Mar", impact: "Critical", mitigation: "WhatsApp Crisis Group & Protokol Respon Cepat." },
+                { name: "Blunder Komunikasi Direksi", period: "Anytime", impact: "Medium", mitigation: "Strategic Briefing Memo wajib sebelum eksternal." }
+            ]
+        };
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-zinc-900', 'border-b-2', 'border-zinc-900');
+                btn.classList.add('text-zinc-400');
+            });
+            document.getElementById('btn-' + tabId).classList.add('text-zinc-900', 'border-b-2', 'border-zinc-900');
+            document.getElementById('btn-' + tabId).classList.remove('text-zinc-400');
+        }
+
+        // Render Functions
+        function init() {
+            // Render Must Win
+            const mustWinList = document.getElementById('must-win-list');
+            appData.mustWin.forEach((item, i) => {
+                mustWinList.innerHTML += `
+                    <li class="flex items-start gap-3 group">
+                        <div class="mt-1 w-5 h-5 rounded-full border border-zinc-700 flex items-center justify-center text-[10px] group-hover:bg-white group-hover:text-black transition-colors">${i + 1}</div>
+                        <span class="font-medium text-lg leading-tight">${item}</span>
+                    </li>
+                `;
+            });
+
+            // Render Month Selector
+            const monthSelector = document.getElementById('month-selector');
+            appData.months.forEach((m, i) => {
+                const activeClass = i === 1 ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white text-zinc-400 border-zinc-200 hover:border-zinc-900';
+                monthSelector.innerHTML += `
+                    <button onclick="selectMonth('${m.name}')" id="btn-month-${m.name}" class="month-btn px-4 py-2 text-xs font-bold uppercase tracking-widest whitespace-nowrap transition-all border ${activeClass}">
+                        ${m.name}
+                    </button>
+                `;
+            });
+
+            // Render Month Details
+            renderMonthDetail('Februari');
+
+            // Render Guidance
+            const dailyContainer = document.getElementById('daily-guidance');
+            appData.guidance.daily.forEach(item => {
+                dailyContainer.innerHTML += `
+                    <div class="group p-6 border border-zinc-100 hover:border-zinc-900 transition-all rounded-xl hover:shadow-xl hover:shadow-zinc-100 bg-white">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-black uppercase tracking-tight text-lg">${item.title}</h4>
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-zinc-200 group-hover:text-zinc-900 transition-colors"></i>
+                        </div>
+                        <p class="text-zinc-500 text-sm leading-relaxed">${item.desc}</p>
+                    </div>
+                `;
+            });
+
+            const weeklyContainer = document.getElementById('weekly-guidance');
+            appData.guidance.weekly.forEach(item => {
+                weeklyContainer.innerHTML += `
+                    <div class="group p-6 border border-zinc-100 hover:border-zinc-900 transition-all rounded-xl hover:shadow-xl hover:shadow-zinc-100 bg-white">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="font-black uppercase tracking-tight text-lg">${item.title}</h4>
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-zinc-200 group-hover:text-zinc-900 transition-colors"></i>
+                        </div>
+                        <p class="text-zinc-500 text-sm leading-relaxed">${item.desc}</p>
+                    </div>
+                `;
+            });
+
+            // Render Risks
+            const riskBody = document.getElementById('risk-table-body');
+            appData.risks.forEach(risk => {
+                riskBody.innerHTML += `
+                    <tr class="group hover:bg-zinc-800/50 transition-colors text-white">
+                        <td class="py-6 pr-4 font-bold text-lg leading-none">${risk.name}</td>
+                        <td class="py-6 px-4">
+                            <span class="px-2 py-1 bg-zinc-800 text-xs font-bold uppercase tracking-widest border border-zinc-700">${risk.period}</span>
+                        </td>
+                        <td class="py-6 px-4">
+                            <span class="font-black text-xs uppercase ${risk.impact === 'Critical' ? 'text-red-500' : 'text-zinc-400'}">${risk.impact}</span>
+                        </td>
+                        <td class="py-6 pl-4 text-zinc-400 text-sm italic">${risk.mitigation}</td>
+                    </tr>
+                `;
+            });
+
+            lucide.createIcons();
+        }
+
+        function selectMonth(monthName) {
+            // Update buttons
+            document.querySelectorAll('.month-btn').forEach(btn => {
+                btn.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-900');
+                btn.classList.add('bg-white', 'text-zinc-400', 'border-zinc-200');
+            });
+            document.getElementById('btn-month-' + monthName).classList.add('bg-zinc-900', 'text-white', 'border-zinc-900');
+            document.getElementById('btn-month-' + monthName).classList.remove('bg-white', 'text-zinc-400', 'border-zinc-200');
+            
+            renderMonthDetail(monthName);
+        }
+
+        function renderMonthDetail(name) {
+            const m = appData.months.find(month => month.name === name);
+            const container = document.getElementById('month-details-container');
+            
+            container.innerHTML = `
+                <div class="md:col-span-2 space-y-8 animate-in slide-in-from-left-4 duration-500">
+                    <div class="border-l-4 border-zinc-900 pl-8 py-4">
+                        <div class="flex items-center gap-4 mb-4">
+                            <h3 class="text-6xl md:text-7xl font-black text-zinc-100 uppercase leading-none">${m.name}</h3>
+                            ${m.special ? `<span class="px-3 py-1 bg-red-100 text-red-600 text-[10px] font-black uppercase tracking-tighter rounded-full flex items-center gap-1"><i data-lucide="zap" class="w-3 h-3"></i> ${m.special}</span>` : ''}
+                        </div>
+                        <p class="text-2xl font-bold uppercase tracking-tight mb-8">${m.theme}</p>
+                        
+                        <div class="grid sm:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400">Aktivitas Kunci</h4>
+                                <ul class="space-y-3">
+                                    ${m.tasks.map(t => `
+                                        <li class="flex gap-3 items-center group cursor-default">
+                                            <div class="w-2 h-2 bg-zinc-200 group-hover:bg-zinc-900 transition-colors"></div>
+                                            <span class="text-zinc-600 font-medium">${t}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            <div class="bg-zinc-50 p-6 rounded-xl space-y-6">
+                                <div>
+                                    <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2 italic">Proker / Program</h4>
+                                    <p class="font-bold text-sm uppercase">${m.proker}</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-black uppercase tracking-widest text-zinc-400 mb-2 italic">Indikator KPI</h4>
+                                    <div class="flex gap-2">
+                                        ${m.kpi.split(', ').map(k => `<span class="px-2 py-1 bg-white border border-zinc-200 text-[10px] font-bold">${k}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-zinc-100 p-8 rounded-2xl flex flex-col justify-between h-full">
+                    <div>
+                        <h4 class="text-xs font-black uppercase tracking-widest mb-6">Alignment Check</h4>
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between border-b border-zinc-200 pb-2">
+                                <span class="text-xs font-bold text-zinc-500 uppercase">Budget Compliance</span>
+                                <span class="text-xs font-black text-green-600 uppercase">On Track</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-zinc-200 pb-2">
+                                <span class="text-xs font-bold text-zinc-500 uppercase">Governance Risk</span>
+                                <span class="text-xs font-black uppercase ${name === 'Maret' ? 'text-red-600' : 'text-zinc-900'}">
+                                    ${name === 'Maret' ? 'High' : 'Normal'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12 pt-12 border-t border-zinc-200">
+                        <p class="text-[10px] leading-relaxed text-zinc-400 uppercase font-bold italic">
+                            "Corsec harus memastikan setiap langkah strategis direksi memiliki landasan legalitas dan kepatuhan syariah."
+                        </p>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // Run Init
+        window.onload = init;
     </script>
 </body>
 </html>
